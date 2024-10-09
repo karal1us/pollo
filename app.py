@@ -4,6 +4,7 @@ import string
 import qrcode
 import io
 import base64
+import time
 from PIL import Image, ImageDraw
 from flask import Flask, render_template, request, session, redirect, url_for
 from flask_socketio import SocketIO, emit, join_room, leave_room
@@ -92,8 +93,14 @@ def send_poll(data):
     db.session.commit()
     emit('new_poll', {'poll_id': new_poll.id}, room=room)
     
-    # Set a timer to clear the poll after 30 seconds
-    Timer(30, clear_poll, args=[room, new_poll.id]).start()
+    # Start countdown timer
+    countdown_timer(room, new_poll.id, 30)
+
+def countdown_timer(room, poll_id, duration):
+    for i in range(duration, 0, -1):
+        socketio.emit('update_countdown', {'seconds': i}, room=room)
+        socketio.sleep(1)
+    clear_poll(room, poll_id)
 
 def clear_poll(room, poll_id):
     with app.app_context():

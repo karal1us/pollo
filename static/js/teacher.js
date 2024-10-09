@@ -9,6 +9,7 @@ const badBar = document.getElementById('badBar');
 const goodCount = document.getElementById('goodCount');
 const neutralCount = document.getElementById('neutralCount');
 const badCount = document.getElementById('badCount');
+const countdownDisplay = document.getElementById('countdownDisplay');
 
 let currentPollId = null;
 
@@ -21,6 +22,7 @@ socket.on('update_student_count', (data) => {
 sendPollBtn.addEventListener('click', () => {
     socket.emit('send_poll', {room: roomCode});
     pollResults.classList.remove('hidden');
+    countdownDisplay.classList.remove('hidden');
     resetResults();
 });
 
@@ -34,6 +36,13 @@ socket.on('update_results', (data) => {
 
 socket.on('clear_poll', () => {
     hidePollResults();
+});
+
+socket.on('update_countdown', (data) => {
+    countdownDisplay.textContent = `Time remaining: ${data.seconds} seconds`;
+    if (data.seconds === 0) {
+        hidePollResults();
+    }
 });
 
 function resetResults() {
@@ -62,5 +71,6 @@ function updateResults(data) {
 
 function hidePollResults() {
     pollResults.classList.add('hidden');
+    countdownDisplay.classList.add('hidden');
     resetResults();
 }
