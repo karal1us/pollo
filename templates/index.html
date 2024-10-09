@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Polling App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold mb-6 text-center">Interactive Polling App</h1>
+        <div class="space-y-4">
+            <form action="{{ url_for('create_room') }}" method="post" class="flex flex-col items-center">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">Create Room (Teacher)</button>
+            </form>
+            <div class="text-center">
+                <p class="mb-2">Or</p>
+                <input type="text" id="roomCode" placeholder="Enter Room Code" class="border rounded px-3 py-2 w-full mb-2">
+                <button onclick="joinRoom()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Join Room (Student)</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function joinRoom() {
+            const roomCode = document.getElementById('roomCode').value.toUpperCase();
+            if (roomCode) {
+                window.location.href = `/join/${roomCode}`;
+            } else {
+                alert('Please enter a valid room code');
+            }
+        }
+    </script>
+</body>
+</html>

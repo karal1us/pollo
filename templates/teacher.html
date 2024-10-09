@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Room</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-3xl font-bold mb-6">Teacher Room</h1>
+        <div class="mb-6">
+            <p class="text-lg font-semibold">Room Code: <span id="roomCode" class="text-blue-600">{{ room_code }}</span></p>
+            <p class="text-lg font-semibold mt-2">Students joined: <span id="studentCount" class="text-green-600">0</span></p>
+        </div>
+        <div class="mb-6">
+            <h2 class="text-xl font-bold mb-2">QR Code</h2>
+            <img src="{{ qr_code }}" alt="Room QR Code" class="w-48 h-48">
+        </div>
+        <button id="sendPollBtn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition mb-6">Send Poll</button>
+        <div id="pollResults" class="hidden">
+            <h2 class="text-xl font-bold mb-4">Poll Results</h2>
+            <div class="space-y-2">
+                <div class="flex items-center">
+                    <span class="w-16">Good:</span>
+                    <div class="bg-green-200 h-6 rounded-full overflow-hidden flex-grow">
+                        <div id="goodBar" class="bg-green-500 h-full" style="width: 0%"></div>
+                    </div>
+                    <span id="goodCount" class="ml-2">0</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="w-16">50/50:</span>
+                    <div class="bg-yellow-200 h-6 rounded-full overflow-hidden flex-grow">
+                        <div id="neutralBar" class="bg-yellow-500 h-full" style="width: 0%"></div>
+                    </div>
+                    <span id="neutralCount" class="ml-2">0</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="w-16">Bad:</span>
+                    <div class="bg-red-200 h-6 rounded-full overflow-hidden flex-grow">
+                        <div id="badBar" class="bg-red-500 h-full" style="width: 0%"></div>
+                    </div>
+                    <span id="badCount" class="ml-2">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/teacher.js') }}"></script>
+</body>
+</html>

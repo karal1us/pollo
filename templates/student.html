@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Room</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
+        <h1 class="text-3xl font-bold mb-6 text-center">Student Room</h1>
+        <p class="text-lg font-semibold mb-6 text-center">Room Code: <span id="roomCode" class="text-blue-600">{{ room_code }}</span></p>
+        <div id="waitingMessage" class="text-center mb-6">
+            <p class="text-lg">Waiting for the teacher to send a poll...</p>
+        </div>
+        <div id="pollOptions" class="hidden space-y-4">
+            <button id="goodBtn" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition w-full">Good</button>
+            <button id="neutralBtn" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition w-full">50/50</button>
+            <button id="badBtn" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition w-full">Bad</button>
+        </div>
+        <div id="thankYouMessage" class="hidden text-center mt-6">
+            <p class="text-lg font-semibold text-green-600">Thank you for your response!</p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/student.js') }}"></script>
+</body>
+</html>
