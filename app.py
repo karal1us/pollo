@@ -9,6 +9,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from flask_socketio import SocketIO, emit, join_room, leave_room
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
+from threading import Timer
 
 class Base(DeclarativeBase):
     pass
@@ -90,6 +91,17 @@ def send_poll(data):
     db.session.add(new_poll)
     db.session.commit()
     emit('new_poll', {'poll_id': new_poll.id}, room=room)
+    
+    # Set a timer to clear the poll after 30 seconds
+    Timer(30, clear_poll, args=[room, new_poll.id]).start()
+
+def clear_poll(room, poll_id):
+    with app.app_context():
+        poll = Poll.query.get(poll_id)
+        if poll:
+            db.session.delete(poll)
+            db.session.commit()
+        socketio.emit('clear_poll', room=room)
 
 @socketio.on('submit_answer')
 def submit_answer(data):
