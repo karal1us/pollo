@@ -1,0 +1,25 @@
+{
+    "name": "@types/caniuse-lite",
+    "version": "1.0.5",
+    "description": "TypeScript definitions for caniuse-lite",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/caniuse-lite",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Michael Utech",
+            "githubUsername": "mutech",
+            "url": "https://github.com/mutech"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/caniuse-lite"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "typesPublisherContentHash": "1f4750bfa9ab626b7e5fbf38efe4e3ad9d401237eea14325ca8f653d6d248311",
+    "typeScriptVersion": "4.5"
+}
